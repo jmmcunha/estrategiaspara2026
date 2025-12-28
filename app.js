@@ -4,6 +4,92 @@
  * Gerenciamento de projetos com Firebase
  */
 
+// =====================================================
+// FUNÇÕES GLOBAIS (disponíveis para todos os arquivos)
+// =====================================================
+
+function showLoading() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) overlay.classList.remove('hidden');
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) overlay.classList.add('hidden');
+}
+
+function showToast(message, type = 'info') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    const icons = {
+        success: 'fas fa-check-circle',
+        error: 'fas fa-exclamation-circle',
+        warning: 'fas fa-exclamation-triangle',
+        info: 'fas fa-info-circle'
+    };
+    
+    toast.className = `toast ${type}`;
+    const iconEl = toast.querySelector('.toast-icon');
+    const msgEl = toast.querySelector('.toast-message');
+    if (iconEl) iconEl.className = `toast-icon ${icons[type]}`;
+    if (msgEl) msgEl.textContent = message;
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 4000);
+}
+
+function openModal(modal) {
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modal) {
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function parseDate(dateString) {
+    if (!dateString || typeof dateString !== 'string') return null;
+    
+    // Tenta formato dd/mm/yyyy
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+        return new Date(parts[2], parts[1] - 1, parts[0]);
+    }
+    
+    // Tenta formato yyyy-mm-dd
+    const isoDate = new Date(dateString);
+    if (!isNaN(isoDate.getTime())) {
+        return isoDate;
+    }
+    
+    return null;
+}
+
+function formatDateBR(dateString) {
+    const date = parseDate(dateString);
+    if (!date) return dateString || '-';
+    return date.toLocaleDateString('pt-BR');
+}
+
+function formatDateISO(dateString) {
+    const date = parseDate(dateString);
+    if (!date) return '';
+    return date.toISOString().split('T')[0];
+}
+
+// Variável global para projetos
+window.allProjects = [];
+
+// =====================================================
+// INICIALIZAÇÃO DO APP
+// =====================================================
+
 document.addEventListener('DOMContentLoaded', () => {
     // =====================================================
     // ELEMENTOS DO DOM
@@ -85,77 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let unsubscribeProjects = null;
     let unsubscribeComments = null;
     
-    // =====================================================
-    // UTILITÁRIOS
-    // =====================================================
-    
-    function showLoading() {
-        loadingOverlay.classList.remove('hidden');
-    }
-    
-    function hideLoading() {
-        loadingOverlay.classList.add('hidden');
-    }
-    
-    function showToast(message, type = 'info') {
-        const icons = {
-            success: 'fas fa-check-circle',
-            error: 'fas fa-exclamation-circle',
-            warning: 'fas fa-exclamation-triangle',
-            info: 'fas fa-info-circle'
-        };
-        
-        toast.className = `toast ${type}`;
-        toast.querySelector('.toast-icon').className = `toast-icon ${icons[type]}`;
-        toast.querySelector('.toast-message').textContent = message;
-        toast.classList.add('show');
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 4000);
-    }
-    
-    function openModal(modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeModal(modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-    
-    function parseDate(dateString) {
-        if (!dateString || typeof dateString !== 'string') return null;
-        
-        // Tenta formato dd/mm/yyyy
-        const parts = dateString.split('/');
-        if (parts.length === 3) {
-            return new Date(parts[2], parts[1] - 1, parts[0]);
-        }
-        
-        // Tenta formato yyyy-mm-dd
-        const isoDate = new Date(dateString);
-        if (!isNaN(isoDate.getTime())) {
-            return isoDate;
-        }
-        
-        return null;
-    }
-    
-    function formatDateBR(dateString) {
-        const date = parseDate(dateString);
-        if (!date) return dateString || '-';
-        
-        return date.toLocaleDateString('pt-BR');
-    }
-    
-    function formatDateISO(dateString) {
-        const date = parseDate(dateString);
-        if (!date) return '';
-        
-        return date.toISOString().split('T')[0];
-    }
+    // Referências aos elementos de loading e toast
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const toast = document.getElementById('toast');
     
     // =====================================================
     // AUTENTICAÇÃO
@@ -263,6 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 snapshot.forEach((doc) => {
                     allProjects.push({ docId: doc.id, ...doc.data() });
                 });
+                // Sincronizar com variável global
+                window.allProjects = allProjects;
                 displayProjects(allProjects);
                 updateDashboard(allProjects);
             }, (error) => {
@@ -1552,15 +1572,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof initReportsListeners === 'function') {
         initReportsListeners();
     }
-
-    // Expor funções e variáveis globalmente para outros módulos
-    window.allProjects = allProjects;
-    window.openModal = openModal;
-    window.closeModal = closeModal;
-    window.parseDate = parseDate;
-    window.showToast = showToast;
-    window.showLoading = showLoading;
-    window.hideLoading = hideLoading;
-    window.formatDateBR = formatDateBR;
-    window.formatDateISO = formatDateISO;
 });
