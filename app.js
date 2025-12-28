@@ -1553,6 +1553,14 @@ document.addEventListener('DOMContentLoaded', () => {
         initReportsListeners();
     }
 
-    // Expor allProjects globalmente para outros módulos
+    // Expor funções e variáveis globalmente para outros módulos
     window.allProjects = allProjects;
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.parseDate = parseDate;
+    window.showToast = showToast;
+    window.showLoading = showLoading;
+    window.hideLoading = hideLoading;
+    window.formatDateBR = formatDateBR;
+    window.formatDateISO = formatDateISO;
 });
