@@ -64,7 +64,7 @@
  */
 
 const firebaseConfig = {
-    apiKey: "AIzaSy.....................",
+    apiKey: "AIzaSyB5iY23Br7-WyUZCeI2w3GYRdEXI6kxPl0",
     authDomain: "estrategiaspara2026.firebaseapp.com",
     projectId: "estrategiaspara2026",
     storageBucket: "estrategiaspara2026.appspot.com",
