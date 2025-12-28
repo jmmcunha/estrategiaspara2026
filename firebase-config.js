@@ -64,12 +64,12 @@
  */
 
 const firebaseConfig = {
-    apiKey: "SUA_API_KEY_AQUI",
-    authDomain: "SEU_PROJETO.firebaseapp.com",
-    projectId: "SEU_PROJETO",
-    storageBucket: "SEU_PROJETO.appspot.com",
-    messagingSenderId: "SEU_SENDER_ID",
-    appId: "SEU_APP_ID"
+    apiKey: "AIzaSy.....................",
+    authDomain: "estrategiaspara2026.firebaseapp.com",
+    projectId: "estrategiaspara2026",
+    storageBucket: "estrategiaspara2026.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
 };
 
 // Inicialização do Firebase
