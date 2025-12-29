@@ -170,3 +170,4 @@ Desenvolvido para uso interno da Comissão de Assuntos Sociais - CAS/CLDF.
 ---
 
 **Versão 2.0** | Dezembro 2025
+
