@@ -2,6 +2,32 @@
 
 Sistema web para gerenciamento de projetos com Firebase, desenvolvido para acompanhamento de atividades, prazos e indicadores.
 
+## 📱 PWA - Progressive Web App
+
+Este site funciona como um **Progressive Web App (PWA)**, permitindo:
+
+- ✅ **Instalação no dispositivo** - Aparece como app na tela inicial
+- ✅ **Funcionamento offline** - Acesse mesmo sem internet (dados em cache)
+- ✅ **Carregamento rápido** - Cache inteligente de recursos
+- ✅ **Atualizações automáticas** - Notificação quando há nova versão
+
+### Como instalar no celular
+
+**Android (Chrome):**
+1. Acesse o site
+2. Toque nos três pontos (⋮) no canto superior
+3. Selecione "Adicionar à tela inicial" ou "Instalar app"
+
+**iPhone (Safari):**
+1. Acesse o site
+2. Toque no botão compartilhar (↑)
+3. Selecione "Adicionar à Tela de Início"
+
+**Desktop (Chrome/Edge):**
+1. Acesse o site
+2. Clique no ícone de instalação (⊕) na barra de endereços
+3. Ou use o menu: "Instalar Painel Executivo..."
+
 ## ✨ Novidades da Versão 2.0
 
 - **📎 Arquivos Anexos** - Anexe PDFs, documentos Word, planilhas Excel e imagens aos projetos
@@ -64,6 +90,10 @@ Sistema web para gerenciamento de projetos com Firebase, desenvolvido para acomp
 | `firebase-config.js` | Credenciais do Firebase |
 | `export.js` | Exportação de dados |
 | `import.js` | Importação de dados |
+| `manifest.json` | Manifesto do PWA |
+| `sw.js` | Service Worker (cache offline) |
+| `offline.html` | Página de fallback offline |
+| `icons/` | Ícones do PWA em vários tamanhos |
 
 ## ⚙️ Configuração
 

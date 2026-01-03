@@ -168,18 +168,10 @@ function getSelectedFields() {
 }
 
 function getFilteredProjects() {
-    const statusFilter = document.getElementById('export-status-filter');
     const projectFilter = document.getElementById('export-project-filter');
-    
-    const statusValue = statusFilter ? statusFilter.value : 'todos';
     const projectValue = projectFilter ? projectFilter.value : 'todos';
     
     let projects = [...(window.allProjects || [])];
-
-    // Filtrar por status
-    if (statusValue !== 'todos') {
-        projects = projects.filter(p => p.status === statusValue);
-    }
 
     // Filtrar por projeto específico
     if (projectValue !== 'todos') {
